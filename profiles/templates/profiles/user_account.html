@@ -1,0 +1,123 @@
+{% comment %} {% extends 'base.html' %} {% endcomment %}
+{% load static %}
+
+{% block stylecontent %}
+<style>
+    body {
+        background-color: aliceblue;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    h2 {
+        font-family: 'Slabo 27px';
+        border-bottom: 1px solid black;
+        font-weight: 900;
+        margin: 0;
+        padding: 0;
+    }
+
+    #page_name {
+        font-size: 25px;
+        color: #3399ff;
+        margin-bottom: 20px;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .details-container, .buttons-container {
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .details-container h4 {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .details-table, .buttons-table {
+        width: 100%;
+    }
+
+    .details-table td, .buttons-table td {
+        padding: 10px;
+    }
+
+    .button {
+        background-color: #33adff;
+        color: #fff;
+        border: none;
+        padding: 15px 32px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        width: 100%;
+        display: block;
+        margin-bottom: 10px;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    .button:hover {
+        background-color: #D0D0D0;
+    }
+
+    #edit_details {
+        top: 10px;
+        left: 20px;
+    }
+
+    #edit_button a {
+        text-decoration: none;
+        color: #000;
+    }
+</style>
+{% endblock %}
+
+<body>
+    {% block bodycontent %}
+    <div class="container">
+        <div id="page_name">
+            <h2>User Account</h2>
+            <button class="button"><a href='{% url "accounts:logout" %}' >Logout</a></button>
+        </div>
+        <div class="details-container">
+            <h4>User Details:</h4>
+            <table class="details-table">
+                <tr>
+                    <td>User Name: {{ customer.customer_data.Name }}</td>
+                </tr>
+            </table>
+        </div>
+        
+        <form name="dashboard" action="redirect_from_dashboard">
+            {% csrf_token %}
+            <input type="hidden" name="function_chosen" id="function_chosen">
+            <div class="buttons-container">
+                <button class="button" onclick="set_function_chosen('view_accounts')"><b>View Accounts</b></button>
+                <button class="button" onclick="set_function_chosen('start_ecs')"><b>Start ECS</b></button>
+                <button class="button" onclick="set_function_chosen('withdraw')"><b>Withdraw</b></button>
+                <button class="button" onclick="set_function_chosen('deposit')"><b>Deposit</b></button>
+                <button class="button" onclick="set_function_chosen('stat_gen')"><b>Statement Generation</b></button>
+                <button class="button" onclick="set_function_chosen('services')"><b>Our Services</b></button>
+            </div>
+        </form>
+    </div>
+    <script>
+        function set_function_chosen(menu_name) {
+            hidden_field = document.getElementById("function_chosen");
+            hidden_field.setAttribute("value", menu_name);
+        }
+    </script>
+    {% endblock %}
+</body>
+</html>

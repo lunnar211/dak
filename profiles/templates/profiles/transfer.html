@@ -1,0 +1,106 @@
+{% comment %} {% extends 'base.html' %} {% endcomment %}
+{% load static %}
+
+{% block stylecontent %}
+<style>
+    body {
+        background-color: aliceblue;
+        font-family: Arial, sans-serif;
+    }
+
+    h2 {
+        font-family: 'Slabo 27px';
+        border-bottom: 1px solid black;
+        font-weight: 900;
+    }
+
+    #page_name {
+        font-size: 25px;
+        color: #3399ff;
+        margin-bottom: 20px;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .form-container {
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+    }
+
+    .form-table {
+        width: 100%;
+    }
+
+    .form-table td {
+        padding: 10px;
+    }
+
+    .form-table input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .form-table input[type="button"] {
+        background-color: #007BFF;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .form-table input[type="button"]:hover {
+        background-color: #0056b3;
+    }
+
+    #edit_button a {
+        text-decoration: none;
+        color: #000;
+    }
+</style>
+{% endblock %}
+
+<body>
+    {% block bodycontent %}
+    <div class="container">
+        <div id="page_name">
+            <h2>Transfer</h2>
+        </div>
+        <div class="form-container">
+            <form name="transfer_details">
+                <table class="form-table">
+                    <tr>
+                        <td>To account:</td>
+                        <td><input type="text" name="to_account" placeholder="Account number"></td>
+                    </tr>
+                    <tr>
+                        <td>From account:</td>
+                        <td><input type="text" name="from_account" placeholder="Account number"></td>
+                    </tr>
+                    <tr>
+                        <td>Amount to be transferred:</td>
+                        <td><input type="text" name="amount" placeholder="Amount"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="button" value="Send"></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div id="edit_details" style="float: right;">
+            <button type="button" id="edit_button"><a href="{% url 'profiles:dashboard' %}">Home</a></button>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>

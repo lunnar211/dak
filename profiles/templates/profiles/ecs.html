@@ -1,0 +1,100 @@
+{% comment %}
+{% extends 'base.html' %}
+{% endcomment %}
+
+{% block stylecontent %}
+<style>
+    body {
+        background-color: #f5f5f5;
+        font-family: 'Arial', sans-serif;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+
+    header {
+        background-color: #007BFF;
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+    }
+
+    #page_name {
+        font-size: 25px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    #edit_details {
+        float: right;
+    }
+
+    #details_box {
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin: 20px auto;
+        max-width: 800px;
+        
+    }
+
+    #ecs_options {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .button {
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin-top: 10px;
+        cursor: pointer;
+        background-color: #007BFF;
+        color: #fff;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .button:hover {
+        background-color: #0056b3;
+    }
+</style>
+{% endblock %}
+
+<body>
+    {% block bodycontent %}
+    <header>
+        <div id="page_name">
+            <font color="#000000">User account</font>
+        </div>
+        <div id="edit_details">
+            <button type="button"><a href="{% url 'profiles:dashboard' %}" style="color: #000000; text-decoration: none;">Home</a></button>
+        </div>
+    </header>
+
+    <div id="details_box">
+        <p>Welcome to the Electronic Clearing Service. This method is used for funds that are both repetitive and periodic in nature. You can transfer money from one bank account to many other bank accounts or from multiple bank accounts to one bank account.</p>
+    </div>
+
+    <form name="ecs_opt" action="redirect_ecs">
+        <input type="hidden" name="ecs_option" id="ecs_option">
+        <div id="ecs_options">
+            <button class="button" onclick="set_ecs_option('new_ecs')"> Set Up New ECS </button>
+            <button class="button" onclick="set_ecs_option('view_ecs')"> Pay Biller </button>
+        </div>
+    </form>
+
+    <script>
+        function set_ecs_option(option) {
+            hidden_field = document.getElementById("ecs_option");
+            hidden_field.setAttribute("value", option);
+        }
+    </script>
+    {% endblock %}
+</body>
+
+</html>

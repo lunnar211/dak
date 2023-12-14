@@ -1,0 +1,160 @@
+{% comment %} {% extends 'base.html' %} {% endcomment %}
+
+{% block stylecontent %}
+<style>
+    body {
+        background-color: aliceblue;
+        font-family: Arial, sans-serif;
+        color: #333; /* Text color */
+    }
+
+    h2 {
+        font-family: 'Slabo 27px';
+        border-bottom: 1px solid black;
+        font-weight: 900;
+    }
+
+    #page_name {
+        font-size: 25px;
+        color: #007BFF; /* Header text color */
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    #details_box {
+        font-size: 18px;
+        padding: 20px;
+        border-radius: 5px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    form {
+        margin-top: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    table, th, td {
+        border: 1px solid #ccc;
+    }
+
+    th, td {
+        padding: 10px;
+        text-align: center;
+    }
+
+    th {
+        background-color: #007BFF;
+        color: #fff;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    button {
+        border: none;
+        padding: 5px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        cursor: pointer;
+        background-color: #007BFF;
+        color: #fff;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #0056b3; /* Hover color for the button */
+    }
+</style>
+{% endblock %}
+
+<body>
+    {% block bodycontent %}
+    <div class="container">
+        {% csrf_token %}
+        {% if user.is_authenticated %}
+        <form name="stat_gen" action="get_stat_gen">
+            <input type="hidden" name="account_action" id="account_action">
+            <div id="page_name">
+                <font color="#3399ff">Welcome {{ customer.customer_data.Name }}!</font>
+            </div>
+            <td>
+                <div id="edit_details" style="float:right;">
+                    <button type="button" id="edit_button"><a href="{% url 'profiles:dashboard' %}">Home</a></button>
+                </div>
+                
+            </td>
+            <div id="details_box" align="center">
+                <h4>Transaction Details :</h4>
+                <table>
+                    <tr>
+                        <th>Trans_ID</th>
+                        <th>Acc_No</th>
+                        <th>Amount</th>
+                        <th>Type</th>
+                    </tr>
+                    {% if accounts %}
+                    {% for accno, trans_obj_list in transaction.items %}
+                    {% if transaction and msg != 'filter' %}
+                    {% for trans_obj in trans_obj_list %}
+                    <tr>
+                        <td>{{ trans_obj.trans_id }}</td>
+                        <td>{{ accno }}</td>
+                        <td>{{ trans_obj.trans_details.Amount }}</td>
+                        <td>{{ trans_obj.trans_details.Type }}</td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    {% for trans_obj in trans_obj_list %}
+                    <tr>
+                        <td>{{ trans_obj.Trans_ID }}</td>
+                        <td>{{ accno }}</td>
+                        <td>{{ trans_obj.Amount }}</td>
+                        <td>{{ trans_obj.Type }}</td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                    {% endfor %}
+                    <tr>
+                        <td colspan="4">
+                            <p>Which type do you want to see?</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <button onclick="set_account_action('all')">All</button>
+                            <button onclick="set_account_action('withdraw')">Withdraw</button>
+                            <button onclick="set_account_action('deposit')">Deposit</button>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4">New Customer. No accounts yet.</td>
+                    </tr>
+                    {% endif %}
+                </table>
+            </div>
+        </form>
+        <script>
+            function set_account_action(account_action_val) {
+                hidden_field = document.getElementById("account_action");
+                hidden_field.setAttribute("value", account_action_val);
+            }
+        </script>
+        {% else %}
+        <p>Welcome, new user. Please log in.</p>
+        {% endif %}
+    </div>
+    {% endblock %}
+</body>
+
+</html>

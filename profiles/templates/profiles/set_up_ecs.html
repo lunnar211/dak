@@ -1,0 +1,100 @@
+{% comment %} {% extends 'base.html' %} {% endcomment %}
+
+{% block stylecontent %}
+    <style>
+        body {
+            background-color: aliceblue;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        h2 {
+            font-family: 'Slabo 27px';
+            border-bottom: 1px solid black;
+            font-weight: 900;
+        }
+
+        #page_name {
+            font-size: 25px;
+            color: #007BFF;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        #details_box {
+            font-size: 18px;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        button[type="submit"] {
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: #fff;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+{% endblock %}
+
+<body>
+    {% block bodycontent %}
+        <table width=60% height=10%>
+            <tr>
+                 
+                <td>
+                    <div id="page_name" style="float:left;">
+                        <font color="#3399ff">User account</font>
+                    </div>
+                </td>
+                <td>
+                    <div id="edit_details" style="float:right;">
+                        <button type="button" id="edit_button">
+                            <a href="{% url 'profiles:dashboard' %}">Home</a>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <form name="set_up_ecs" action="store_new_ecs_data">
+            <label for="payer_name">Payee Name:</label>
+            <input type="text" name="payer_name">
+
+            <label for="accno">Account No. :</label>
+            <input type="text" name="accno">
+
+            <label for="upper_limit">Upper Limit:</label>
+            <input type="text" name="upper_limit">
+
+            <button type="submit">Start ECS</button>
+        </form>
+
+        {{ msg }}
+    {% endblock %}
+</body>
