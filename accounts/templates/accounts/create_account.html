@@ -1,0 +1,165 @@
+{% comment %} {% extends 'base.html' %} {% endcomment %}
+
+{% block stylecontent %}
+    <style>
+        body {
+            background-color: #f0f5f9;
+            font-family: 'Slabo 27px', sans-serif;
+        }
+
+        h2 {
+            border-bottom: 2px solid #3498db;
+            font-weight: 900;
+            text-align: center;
+            padding-bottom: 10px;
+            color: #3498db;
+        }
+
+        h6 {
+            text-align: center;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        h4 {
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        small {
+            text-align: center;
+            color: #555;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            margin-top: 15px;
+            border-radius: 4px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-back {
+            background-color: #95a5a6;
+            color: #fff;
+            border: none;
+            margin-right: 10px;
+        }
+
+        .btn-login {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+        }
+
+        .btn:hover {
+            text-decoration: none;
+        }
+
+        .btn-back:hover {
+            background-color: #7f8c8d;
+        }
+
+        .btn-login:hover {
+            background-color: #2980b9;
+        }
+    </style>
+
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+{% endblock %}
+
+{% block bodycontent %}        
+    <h2>Create New Account</h2>
+    <h6><em>(All details are mandatory)</em></h6>
+    <br>
+    
+    <form class="container" action="/accounts/register/" method="post">
+        {% csrf_token %}
+        <section class="form-control">
+            <h4>Enter basic details</h4>
+            {{ form }}
+        </section>
+        <br>
+        <br>
+        
+        <section>
+            <input type="checkbox" required> 
+            <small>By clicking "Create account" you agree to our  
+                <a href="#">Terms and Conditions</a>.</small>
+        </section>
+        
+        <br>
+        
+        <input type="submit" class="form-control btn btn-primary" value="Create account" name="submit" />
+    </form>
+
+    <div class="container text-center">
+        <button class="btn btn-back" onclick="goBack()">Back</button>
+        <a href="/accounts/login/" class="btn btn-login">Login</a>
+    </div>
+
+    <br>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+{% endblock %}
+
+{% block scriptcontent %}
+    <script>
+        $(".active").removeClass("active");
+        $("#nav-create").addClass("active");
+
+        $(".helptext").html("");
+
+        var input_text = $("input[type=text]");
+        input_text.addClass("form-control");
+
+        var input_pass = $("input[type=password]");
+        input_pass.addClass("form-control");
+
+        $("form ul li").addClass("btn btn-danger");
+    </script>
+{% endblock %}

@@ -1,0 +1,215 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            /* Reset some default styles */
+body,
+html {
+    margin: 0;
+    padding: 0;
+}
+
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Navbar styles */
+.navbar {
+    background-color: #007BFF;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    transition: background-color 0.3s;
+}
+
+.navbar a:hover {
+    background-color: #0056b3;
+}
+
+/* Page content styles */
+.page-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer styles */
+.footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #333;
+    color: #fff;
+}
+
+/* Links in the footer */
+.footer a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .navbar a {
+        padding: 10px;
+    }
+}
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+/* Styling for the header */
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav h1 {
+    font-size: 1.5rem;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav li {
+    margin-left: 1rem;
+}
+
+nav a {
+    text-decoration: none;
+    color: #fff;
+}
+
+nav a:hover {
+    color: #e5e5e5;
+}
+
+/* Styling for the hero section */
+.hero {
+    background-color: #f0f0f0;
+    padding: 2rem;
+}
+
+.hero h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.2rem;
+}
+
+
+
+        </style>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <title>Online Bank</title>
+        
+       
+        {% block stylecontent %}
+
+        {% endblock %}
+        
+
+    </head>
+
+    <body>
+       
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+            <!--<a class="navbar-brand"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon">icon</span>
+            </button>-->
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link" href="{% url 'accounts:signup' %}" id="nav-create">Create new account</a>
+                    <a class="nav-item nav-link" href="{% url 'accounts:signin' %}" id="nav-login">SignIn</a>
+                    <a class="nav-item nav-link" href="{% url 'accounts:signin' %}" id="nav-login">Logout</a>
+                </div>
+            </div>
+            
+        </nav>
+  
+    <main>
+        <section class="hero">
+            {%for message in message%}
+            <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+                <strong>Message: </strong>{{message}}
+                <button type="button" class="close" data-dismiss="alert" area-label="close">
+                <span aria-hidden="true">&time;</span>
+            </button>
+            </div>
+            {% endfor %}
+            <h2>Welcome to Our Banking Website</h2>
+            {%if user.is_authenticated%}
+            <h3>hello {{firstName}}</h3>
+            <h4>You are successfully login in</h4>
+            <button><a class="nav-item nav-link" href="{% url 'accounts:signin' %}" id="nav-login">Logout</a><button>
+            {%else%}
+            <button><a class="nav-item nav-link" href="{% url 'accounts:signin' %}" id="nav-login">SignIn</a></button>
+            <button><a class="nav-item nav-link" href="{% url 'accounts:sign_in' %}" id="nav-login">Logout</a></button>
+            {% endif %}
+            
+        
+        </section>
+
+    </main>
+        <br> <br> <br>
+         <!-- diffrent contents rendered here-->
+        {% block bodycontent %}
+
+        {% endblock %}
+        
+        <!-- FOOTER -->
+        {% block scriptcontent %}
+        <script>
+            // JavaScript code for navigation functionality
+    const navLinks = document.querySelectorAll("nav a");
+    
+    function setActiveLink() {
+      navLinks.forEach(link => link.classList.remove("active"));
+      this.classList.add("active");
+    }
+    
+    navLinks.forEach(link => link.addEventListener("click", setActiveLink));
+    
+        </script>
+        {% endblock %}
+        
+    </body>
+</html>

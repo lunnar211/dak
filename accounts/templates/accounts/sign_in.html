@@ -1,0 +1,109 @@
+{% comment %} {% extends 'base.html' %} {% endcomment %}
+
+{% block stylecontent %}
+    {% comment %} <style>
+        body {
+            background-color: aliceblue
+        }
+      
+    </style> {% endcomment %}
+
+    {% comment %} /* Add these styles to your existing CSS block */ {% endcomment %}
+<style>
+    body {
+        background-color: aliceblue;
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    button[type="submit"] {
+        background-color: #007BFF;
+        color: #fff;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    small {
+        text-align: right;
+        margin-top: 10px;
+    }
+
+    a {
+        color: #007BFF;
+        text-decoration: none;
+    }
+</style>
+
+{% endblock %}
+
+
+{% block bodycontent%}
+        
+    <div class="container"> 
+        <form class="form-control" action="/accounts/login/" method="post">
+            {% csrf_token %}
+            <h2>Enter login details</h2>
+
+            {{ form }}
+
+            <br>
+
+            <button type="submit" class="btn btn-danger">
+                Login
+            </button>
+
+            <br> <br>
+
+            <small class="row">
+                <a href="{% url 'accounts:signup' %}" class="col text-right">Create New Account</a>
+            </small>
+        </form>
+    </div>
+        
+{% endblock %}
+
+{% block scriptcontent %}
+    <script>
+        $(".active").removeClass("active");
+        $("#nav-login").addClass("active");
+        $("input").addClass("form-control");
+    </script>
+{% endblock %}
